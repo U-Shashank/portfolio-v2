@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+/* Font Definitions */
+@font-face {
+  font-family: "Geist Sans";
+  src: local("Geist Sans"), local("Geist-Sans");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: local("Geist Mono"), local("Geist-Mono");
+  font-display: swap;
+}
+
+/* Color Themes */
+:root {
+  /* Light Theme */
+  --light-primary: #C4DFDF;
+  --light-secondary: #D2E9E9;
+  --light-accent: #E3F4F4;
+  --light-background: #F8F6F4;
+  
+  /* Dark Theme */
+  --dark-primary: #1B262C;
+  --dark-secondary: #0F4C75;
+  --dark-accent: #3282B8;
+  --dark-background: #BBE1FA;
+  
+  /* Current Theme Defaults (Light) */
+  --background: var(--light-background);
+  --foreground: var(--dark-primary);
+  --primary: var(--light-primary);
+  --secondary: var(--light-secondary);
+  --accent: var(--light-accent);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: var(--dark-primary);
+    --foreground: var(--dark-background);
+    --primary: var(--dark-primary);
+    --secondary: var(--dark-secondary);
+    --accent: var(--dark-accent);
+  }
+}
+
+/* Theme Application */
+@theme {
+  /* Colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  
+  /* Typography */
+  --font-sans: "Poppins", "Geist Sans", sans-serif;
+  --font-serif: "Playfair Display", serif;
+  --font-mono: "Roboto Mono", "Geist Mono", monospace;
+  
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+}
+
+/* Base Styles */
+body {
+  @apply bg-background text-foreground font-sans;
+  min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Typography Classes */
+h1, h2, h3 {
+  @apply font-serif;
+}
+
+code, pre {
+  @apply font-mono;
+}
+
+/* Custom Utilities */
+@utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+}
