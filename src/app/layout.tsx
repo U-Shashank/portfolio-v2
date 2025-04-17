@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Poppins, Playfair_Display, Roboto_Mono } from "next/font/google";
 import "./globals.css";
+import ThemeProvider from "@/context/theme-provider";
 
 const poppins = Poppins({
   weight: ["300", "400", "600", "700"],
@@ -45,7 +46,9 @@ export default function RootLayout({
       <body
         className={`${geistMono.variable} ${geistSans.variable} ${poppins.variable} ${playfair.variable} ${robotoMono.variable} font-sans antialiased bg-light-background dark:bg-dark-primary text-dark-primary dark:text-light-accent`}
       >
-        {children}
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
