@@ -32,7 +32,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Your Name | Full Stack Developer",
+  title: "Shashank | Full Stack Developer",
   description: "Personal portfolio of a full stack developer",
 };
 
@@ -44,7 +44,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${geistMono.variable} ${geistSans.variable} ${poppins.variable} ${playfair.variable} ${robotoMono.variable} font-sans antialiased bg-light-background dark:bg-dark-primary text-dark-primary dark:text-light-accent`}
+        className={`${geistMono.variable} ${geistSans.variable} ${poppins.variable} ${playfair.variable} ${robotoMono.variable} font-sans antialiased bg-background text-primary`}
       >
         <ThemeProvider>
           {children}

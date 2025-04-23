@@ -16,11 +16,11 @@
 /* Color Themes - Now using data-theme attribute */
 :root {
   /* Light Theme (default) */
-  --light-primary: #C4DFDF;
-  --light-secondary: #D2E9E9;
-  --light-accent: #E3F4F4;
-  --light-background: #F8F6F4;
-  --light-foreground: #1B262C;
+  --light-primary: #FFECB3;
+  --light-secondary: #FFD54F;
+  --light-accent: #FFB74D;
+  --light-background: #FFF8E1;
+  --light-foreground: #BF360C;
   
   /* Dark Theme */
   --dark-primary: #1B262C;
