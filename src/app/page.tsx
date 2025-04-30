@@ -7,6 +7,7 @@ import ProjectsSection from "@/components/Sections/ProjectsSection";
 import SkillsSection from "@/components/Sections/SkillsSection";
 import ContactSection from "@/components/Sections/ContactSection";
 import { useRef } from "react";
+import ParticlesEffect from "@/components/ParticlessEffect";
 
 export default function Home() {
 
@@ -25,7 +26,8 @@ export default function Home() {
         skills: skillsRef,
         contact: contactRef,
       }} />
-      <main className="pt-16">
+
+      <main className="">
         <HeroSection ref={homeRef}/>
         <AboutSection ref={aboutRef}/>
         <ProjectsSection ref={projectsRef}/>

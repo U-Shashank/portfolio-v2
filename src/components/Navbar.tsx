@@ -93,7 +93,7 @@ const Navbar = ({ sectionRefs }: NavbarProps) => {
         href="#home"
         className="text-2xl font-serif font-bold text-accent hover:text-accent/90 transition-colors"
       >
-        YourName
+        
       </Link>
   
       {/* Desktop Links */}

@@ -16,18 +16,20 @@
 /* Color Themes - Now using data-theme attribute */
 :root {
   /* Light Theme (default) */
-  --light-primary: #FFECB3;
-  --light-secondary: #FFD54F;
-  --light-accent: #FFB74D;
-  --light-background: #FFF8E1;
-  --light-foreground: #BF360C;
+  --light-primary: #F3F4F6;
+  --light-secondary: #E5E7EB;
+  --light-accent: #3B82F6;
+  --light-background: #FFFFFF;
+  --light-foreground: #111827;
+  --light-card: #F9FAFB;
   
   /* Dark Theme */
-  --dark-primary: #1B262C;
-  --dark-secondary: #0F4C75;
-  --dark-accent: #3282B8;
-  --dark-background: #BBE1FA;
-  --dark-foreground: #F8F6F4;
+  --dark-primary: #111827;
+  --dark-secondary: #1F2937;
+  --dark-accent: #60A5FA;
+  --dark-background: #030712;
+  --dark-foreground: #F9FAFB;
+  --dark-card: #1F2937;
 
   /* Initial values - will be overridden by ThemeProvider */
   --background: var(--light-background);
@@ -35,25 +37,28 @@
   --primary: var(--light-primary);
   --secondary: var(--light-secondary);
   --accent: var(--light-accent);
+  --card: var(--light-card);
 }
 
 /* Dark theme override - now controlled by React context */
 [data-theme="dark"] {
-  --background: var(--dark-primary);
-  --foreground: var(--dark-background);
-  --primary: var(--dark-secondary);
-  --secondary: var(--dark-accent);
-  --accent: var(--dark-background);
+  --background: var(--dark-background);
+  --foreground: var(--dark-foreground);
+  --primary: var(--dark-primary);
+  --secondary: var(--dark-secondary);
+  --accent: var(--dark-accent);
+  --card: var(--dark-card);
 }
 
 /* System preference fallback */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --background: var(--dark-primary);
-    --foreground: var(--dark-background);
-    --primary: var(--dark-secondary);
-    --secondary: var(--dark-accent);
-    --accent: var(--dark-background);
+    --background: var(--dark-background);
+    --foreground: var(--dark-foreground);
+    --primary: var(--dark-primary);
+    --secondary: var(--dark-secondary);
+    --accent: var(--dark-accent);
+    --card: var(--dark-card);
   }
 }
 
@@ -64,6 +69,7 @@
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
   --color-accent: var(--accent);
+  --color-card: var(--card);
   
   /* Typography */
   --font-sans: "Poppins", "Geist Sans", sans-serif;
@@ -88,23 +94,6 @@ body {
     border-color 0.3s ease;
 }
 
-/* Typography Hierarchy */
-h1 {
-  @apply font-serif text-4xl md:text-5xl font-bold;
-}
-
-h2 {
-  @apply font-serif text-3xl md:text-4xl font-semibold;
-}
-
-h3 {
-  @apply font-serif text-2xl md:text-3xl font-medium;
-}
-
-code, pre, kbd {
-  @apply font-mono text-sm bg-primary/10 px-1.5 py-0.5 rounded;
-}
-
 /* Enhanced utilities */
 @utilities {
   .text-balance {
@@ -121,4 +110,33 @@ code, pre, kbd {
       color 0.3s ease,
       fill 0.3s ease;
   }
+  
+  .card {
+    @apply bg-card rounded-xl p-6 shadow-sm border border-secondary/10;
+  }
+  
+  .btn-primary {
+    @apply bg-accent text-white px-6 py-2 rounded-lg font-medium hover:bg-accent/90 transition-all;
+  }
+  
+  .btn-outline {
+    @apply border border-accent text-accent px-6 py-2 rounded-lg font-medium hover:bg-accent/10 transition-all;
+  }
+
+    /* Floating animation */
+    @keyframes float {
+      0%, 100% {
+        transform: translate(0, 0);
+      }
+      50% {
+        transform: translate(5px, 5px);
+      }
+    }
+  
+    /* Dot pattern background */
+    .bg-dots {
+      background-image: radial-gradient(rgba(100,100,100,0.1) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
 }
+

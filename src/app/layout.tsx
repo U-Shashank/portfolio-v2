@@ -1,39 +1,37 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Poppins, Playfair_Display, Roboto_Mono } from "next/font/google";
+import { Inter, Space_Mono, Poppins, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import ThemeProvider from "@/context/theme-provider";
+import ParticlesEffect from "@/components/ParticlessEffect";
 
-const poppins = Poppins({
-  weight: ["300", "400", "600", "700"],
+// Primary sans-serif font (replacing Geist/Poppins)
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-poppins",
+  display: "swap",
+  variable: "--font-inter",
+  weight: ["400", "500", "600", "700"],
 });
 
+// Monospace font for code elements
+const spaceMono = Space_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-space-mono",
+  weight: ["400", "700"],
+});
+
+// Accent font for headings (optional)
 const playfair = Playfair_Display({
-  weight: ["400", "600", "700"],
   subsets: ["latin"],
+  display: "swap",
   variable: "--font-playfair",
-});
-
-const robotoMono = Roboto_Mono({
-  weight: ["300", "400", "500"],
-  subsets: ["latin"],
-  variable: "--font-roboto-mono",
-});
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
   title: "Shashank | Full Stack Developer",
   description: "Personal portfolio of a full stack developer",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
 };
 
 export default function RootLayout({
@@ -42,10 +40,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body
-        className={`${geistMono.variable} ${geistSans.variable} ${poppins.variable} ${playfair.variable} ${robotoMono.variable} font-sans antialiased bg-background text-primary`}
+        className={`${inter.variable} ${spaceMono.variable} ${playfair.variable} font-sans antialiased bg-background text-foreground`}
       >
+                              <ParticlesEffect />
+
         <ThemeProvider>
           {children}
         </ThemeProvider>
