@@ -44,8 +44,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${spaceMono.variable} ${playfair.variable} font-sans antialiased bg-background text-foreground`}
       >
-                              <ParticlesEffect />
-
+        <ParticlesEffect />
         <ThemeProvider>
           {children}
         </ThemeProvider>
