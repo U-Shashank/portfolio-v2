@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import Section from "../Section";
 import { Github, ExternalLink, Users, Folder, Play } from "lucide-react";
 import * as motion from "motion/react-client";
@@ -25,85 +25,77 @@ const projects: Project[] = [
     collaborators: ["@designer1"],
     highlighted: true
   },
+  {
+    title: "E-Commerce Platform",
+    description: "Full-featured online store with cart, checkout, and admin dashboard.",
+    tech: ["Next.js", "TypeScript", "Stripe"],
+    videoUrl: "https://drive.google.com/file/d/1SQkj6hICsdPVvpve6uqOsgkKy3xwdO0A/preview",
+    githubUrl: "#",
+    liveUrl: "#",
+    collaborators: ["@designer1"],
+    highlighted: true
+  },
+  {
+    title: "E-Commerce Platform",
+    description: "Full-featured online store with cart, checkout, and admin dashboard.",
+    tech: ["Next.js", "TypeScript", "Stripe"],
+    videoUrl: "https://drive.google.com/file/d/1SQkj6hICsdPVvpve6uqOsgkKy3xwdO0A/preview",
+    githubUrl: "#",
+    liveUrl: "#",
+    collaborators: ["@designer1"],
+    highlighted: false
+  },
   // Add more projects...
 ];
 
 const ProjectsSection = ({ ref }: { ref: React.RefObject<HTMLElement | null> }) => {
-  const [activeHighlight, setActiveHighlight] = useState(0);
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
-
-  // Auto-rotate only when video isn't playing
-  useEffect(() => {
-    if (!isVideoPlaying) {
-      const highlighted = projects.filter(p => p.highlighted);
-      intervalRef.current = setInterval(() => {
-        setActiveHighlight(prev => (prev + 1) % highlighted.length);
-      }, 5000);
-    }
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    };
-  }, [isVideoPlaying]);
+  const [videoPlaying, setVideoPlaying] = useState<Record<number, boolean>>({});
 
   const highlightedProjects = projects.filter(p => p.highlighted);
   const regularProjects = projects.filter(p => !p.highlighted);
 
   return (
     <Section id="projects" title="My Projects" ref={ref} className="space-y-12">
-      {/* Highlighted Projects Slideshow */}
-      <div className="relative w-full">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-          {/* Video Player Column */}
-          <div className="relative aspect-video overflow-hidden rounded-xl bg-secondary/10">
-            {highlightedProjects.map((project, index) => (
-              project.videoUrl && (
-                <motion.div
-                  key={index}
-                  className={`absolute inset-0 ${index === activeHighlight ? 'z-10' : 'z-0'}`}
-                  initial={{ opacity: 0 }}
-                  animate={{ 
-                    opacity: index === activeHighlight ? 1 : 0,
-                    transition: { duration: 0.5 }
-                  }}
-                >
+      {/* Highlighted Projects - Alternating Layout */}
+      <div className="space-y-24">
+        {highlightedProjects.map((project, index) => (
+          <div 
+            key={index} 
+            className="grid grid-cols-1 gap-8 lg:grid-cols-2"
+          >
+            {/* Video Column - Left for even indexes, Right for odd indexes */}
+            <div className={`relative aspect-video overflow-hidden rounded-xl bg-secondary/10 ${index % 2 === 1 ? 'lg:order-2' : ''}`}>
+              {project.videoUrl && (
+                <div className="absolute inset-0">
                   <iframe
-                    src={`${highlightedProjects[activeHighlight].videoUrl}?autoplay=${isVideoPlaying ? 1 : 0}`}
+                    src={`${project.videoUrl}?autoplay=${videoPlaying[index] ? 1 : 0}`}
                     className="h-full w-full"
                     frameBorder="0"
                     allow="autoplay; fullscreen"
                     allowFullScreen
-                    onPlay={() => setIsVideoPlaying(true)}
-                    onPause={() => setIsVideoPlaying(false)}
+                    onPlay={() => setVideoPlaying(prev => ({ ...prev, [index]: true }))}
+                    onPause={() => setVideoPlaying(prev => ({ ...prev, [index]: false }))}
                   />
-                </motion.div>
-              )
-            ))}
-            {!isVideoPlaying && (
-              <button
-                onClick={() => setIsVideoPlaying(true)}
-                className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 transform rounded-full bg-accent p-4 text-white shadow-lg transition-all hover:scale-110"
-                aria-label="Play video"
-              >
-                <Play className="h-8 w-8 fill-current" />
-              </button>
-            )}
-          </div>
+                </div>
+              )}
+              {!videoPlaying[index] && (
+                <button
+                  onClick={() => setVideoPlaying(prev => ({ ...prev, [index]: true }))}
+                  className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 transform rounded-full bg-accent p-4 text-white shadow-lg transition-all hover:scale-110"
+                  aria-label="Play video"
+                >
+                  <Play className="h-8 w-8 fill-current" />
+                </button>
+              )}
+            </div>
 
-          {/* Content Column */}
-          <div className="flex flex-col justify-center">
-            {highlightedProjects.map((project, index) => (
+            {/* Content Column - Right for even indexes, Left for odd indexes */}
+            <div className={`flex flex-col justify-center ${index % 2 === 1 ? 'lg:order-1' : ''}`}>
               <motion.div
-                key={index}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ 
-                  opacity: index === activeHighlight ? 1 : 0,
-                  x: index === activeHighlight ? 0 : 20,
-                  transition: { duration: 0.5 }
-                }}
-                className={`${index === activeHighlight ? 'block' : 'hidden'}`}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
               >
                 <h3 className="text-3xl font-bold text-foreground">{project.title}</h3>
                 <p className="my-4 text-lg text-foreground/80">{project.description}</p>
@@ -150,25 +142,9 @@ const ProjectsSection = ({ ref }: { ref: React.RefObject<HTMLElement | null> }) 
                   )}
                 </div>
               </motion.div>
-            ))}
-
-            {/* Slideshow Controls */}
-            <div className="mt-8 flex gap-2">
-              {highlightedProjects.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => {
-                    setActiveHighlight(index);
-                    setIsVideoPlaying(false);
-                    clearInterval(intervalRef.current as NodeJS.Timeout);
-                  }}
-                  className={`h-2 rounded-full transition-all ${index === activeHighlight ? 'bg-accent w-6' : 'bg-secondary/50 w-2'}`}
-                  aria-label={`View project ${index + 1}`}
-                />
-              ))}
             </div>
           </div>
-        </div>
+        ))}
       </div>
 
       {/* Regular Projects Grid */}
@@ -181,53 +157,53 @@ const ProjectsSection = ({ ref }: { ref: React.RefObject<HTMLElement | null> }) 
   );
 };
 
-// RegularProject component remains the same as previous example
+// RegularProject component remains the same
 const RegularProject = ({ project }: { project: Project }) => {
-    return (
-      <motion.div
-        whileHover={{ y: -5 }}
-        className="rounded-lg border border-secondary/10 bg-card p-6 transition-all hover:shadow-md"
-      >
-        <div className="mb-4 flex items-start justify-between">
-          <Folder className="h-8 w-8 text-accent" />
-          <div className="flex gap-3">
-            {project.githubUrl && (
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-foreground/50 hover:text-accent"
-                aria-label="GitHub repository"
-              >
-                <Github className="h-5 w-5" />
-              </a>
-            )}
-            {project.liveUrl && (
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-foreground/50 hover:text-accent"
-                aria-label="Live demo"
-              >
-                <ExternalLink className="h-5 w-5" />
-              </a>
-            )}
-          </div>
+  return (
+    <motion.div
+      whileHover={{ y: -5 }}
+      className="rounded-lg border border-secondary/10 bg-card p-6 transition-all hover:shadow-md"
+    >
+      <div className="mb-4 flex items-start justify-between">
+        <Folder className="h-8 w-8 text-accent" />
+        <div className="flex gap-3">
+          {project.githubUrl && (
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground/50 hover:text-accent"
+              aria-label="GitHub repository"
+            >
+              <Github className="h-5 w-5" />
+            </a>
+          )}
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground/50 hover:text-accent"
+              aria-label="Live demo"
+            >
+              <ExternalLink className="h-5 w-5" />
+            </a>
+          )}
         </div>
-  
-        <h3 className="mb-2 text-xl font-semibold text-foreground">{project.title}</h3>
-        <p className="mb-4 text-foreground/70">{project.description}</p>
-        
-        <div className="flex flex-wrap gap-2">
-          {project.tech.map((tech, i) => (
-            <span key={i} className="text-xs text-foreground/50">
-              {tech}
-            </span>
-          ))}
-        </div>
-      </motion.div>
-    );
-  };
+      </div>
+
+      <h3 className="mb-2 text-xl font-semibold text-foreground">{project.title}</h3>
+      <p className="mb-4 text-foreground/70">{project.description}</p>
+      
+      <div className="flex flex-wrap gap-2">
+        {project.tech.map((tech, i) => (
+          <span key={i} className="text-xs text-foreground/50">
+            {tech}
+          </span>
+        ))}
+      </div>
+    </motion.div>
+  );
+};
 
 export default ProjectsSection;
