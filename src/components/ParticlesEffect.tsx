@@ -56,7 +56,7 @@ const ParticlesEffect = () => {
     const primaryColor = computedStyle.getPropertyValue('--primary').trim();
     
     // Create particles
-    const particleCount = Math.floor((dimensions.width * dimensions.height) / 15000);
+    const particleCount = Math.floor((dimensions.width * dimensions.height) / 20000);
     const particles: Particle[] = [];
     
     for (let i = 0; i < particleCount; i++) {

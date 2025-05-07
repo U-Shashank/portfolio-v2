@@ -1,31 +1,30 @@
 import { useEffect, useRef, useState } from "react";
 import * as motion from "motion/react-client";
-import { Linkedin, Github, Twitter, FileText } from "lucide-react";
-import Section from "../Section";
-import AnimatedBackground from "../ParticlessEffect";
-import ParticlesEffect from "../ParticlessEffect";
+import { FaLinkedin, FaGithub, FaXTwitter } from "react-icons/fa6";
+import { FaFileAlt } from "react-icons/fa";
+import Section from "../components/Section";
 
 const socialLinks = [
   {
-    icon: <Linkedin className="w-5 h-5" />,
+    icon: <FaLinkedin className="w-5 h-5" />,
     href: "https://linkedin.com/in/yourprofile",
     label: "LinkedIn",
     color: "#0077B5"
   },
   {
-    icon: <Twitter className="w-5 h-5" />,
-    href: "https://twitter.com/yourhandle",
-    label: "Twitter",
-    color: "#0077B5"
+    icon: <FaXTwitter className="w-5 h-5" />,
+    href: "https://x.com/yourhandle",
+    label: "X",
+    color: "#000000"
   },
   {
-    icon: <Github className="w-5 h-5" />,
+    icon: <FaGithub className="w-5 h-5" />,
     href: "https://github.com/yourusername",
     label: "GitHub",
-    color: "#0077B5"
+    color: "#171515"
   },
   {
-    icon: <FileText className="w-5 h-5" />,
+    icon: <FaFileAlt className="w-5 h-5" />,
     href: "/resume.pdf",
     label: "Resume",
     color: "#0077B5"
@@ -33,6 +32,7 @@ const socialLinks = [
 ];
 
 const HeroSection = ({ ref }: { ref: React.RefObject<HTMLElement | null> }) => {
+  // Rest of your component stays the same
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -46,7 +46,6 @@ const HeroSection = ({ ref }: { ref: React.RefObject<HTMLElement | null> }) => {
       className="relative flex items-center justify-center min-h-screen"
       ref={ref}
     >
-
       {/* Main content container */}
       <div className="relative z-10 w-full max-w-4xl px-8 lg:px-16 text-center">
         {/* Simple greeting with subtle animation */}
@@ -135,25 +134,10 @@ const HeroSection = ({ ref }: { ref: React.RefObject<HTMLElement | null> }) => {
           ))}
         </motion.div>
 
-        {/* Optional CTA button */}
-        {/* <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
-          transition={{ duration: 0.8, delay: 1.0 }}
-          className="mt-12"
-        >
-          <a 
-            href="#projects" 
-            className="inline-block border-2 border-accent text-accent px-8 py-4 rounded-lg font-mono text-lg tracking-wide hover:bg-accent/10 transition-all"
-          >
-            View my projects
-          </a>
-        </motion.div> */}
+        {/* Subtle background elements using theme colors */}
+        <div className="absolute top-1/3 -left-20 w-72 h-72 rounded-full bg-accent/10 blur-3xl"></div>
+        <div className="absolute bottom-1/3 right-0 w-72 h-72 rounded-full bg-primary/20 blur-3xl"></div>
       </div>
-
-      {/* Subtle background elements using theme colors */}
-      <div className="absolute top-1/3 -left-20 w-72 h-72 rounded-full bg-accent/10 blur-3xl"></div>
-      <div className="absolute bottom-1/3 right-0 w-72 h-72 rounded-full bg-primary/20 blur-3xl"></div>
     </Section>
   );
 };

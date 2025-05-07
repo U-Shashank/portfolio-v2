@@ -22,7 +22,7 @@
   --light-background: #FFFFFF;
   --light-foreground: #111827;
   --light-card: #F9FAFB;
-  
+
   /* Dark Theme */
   --dark-primary: #111827;
   --dark-secondary: #1F2937;
@@ -70,12 +70,12 @@
   --color-secondary: var(--secondary);
   --color-accent: var(--accent);
   --color-card: var(--card);
-  
+
   /* Typography */
-  --font-sans: "Poppins", "Geist Sans", sans-serif;
-  --font-serif: "Playfair Display", serif;
-  --font-mono: "Roboto Mono", "Geist Mono", monospace;
-  
+  --font-sans: "Sora", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
   /* Enhanced spacing system */
   --spacing-xs: 0.5rem;
   --spacing-sm: 1rem;
@@ -88,8 +88,8 @@
 body {
   @apply bg-background text-foreground font-sans;
   min-height: 100vh;
-  transition: 
-    background-color 0.3s ease, 
+  transition:
+    background-color 0.3s ease,
     color 0.3s ease,
     border-color 0.3s ease;
 }
@@ -105,7 +105,7 @@ body {
   }
   
   .theme-transition {
-    transition: 
+    transition:
       background-color 0.3s ease,
       color 0.3s ease,
       fill 0.3s ease;
@@ -122,21 +122,20 @@ body {
   .btn-outline {
     @apply border border-accent text-accent px-6 py-2 rounded-lg font-medium hover:bg-accent/10 transition-all;
   }
-
-    /* Floating animation */
-    @keyframes float {
-      0%, 100% {
-        transform: translate(0, 0);
-      }
-      50% {
-        transform: translate(5px, 5px);
-      }
-    }
   
-    /* Dot pattern background */
-    .bg-dots {
-      background-image: radial-gradient(rgba(100,100,100,0.1) 1px, transparent 1px);
-      background-size: 20px 20px;
+  /* Floating animation */
+  @keyframes float {
+    0%, 100% {
+      transform: translate(0, 0);
     }
+    50% {
+      transform: translate(5px, 5px);
+    }
+  }
+  
+  /* Dot pattern background */
+  .bg-dots {
+    background-image: radial-gradient(rgba(100,100,100,0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
 }
-

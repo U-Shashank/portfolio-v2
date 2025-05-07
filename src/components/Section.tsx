@@ -25,8 +25,11 @@ const Section = ({
             ref={ref}
         >
             {title && (
-                <h2 className="text-4xl font-serif font-bold mb-12 text-center text-accent">
-                    {title}
+                <h2 className="text-4xl md:text-5xl font-serif font-bold mb-12 text-center">
+                    <span className="relative inline-block">
+                        {title}
+                        <span className="absolute -bottom-4 left-1/4 right-1/4 h-0.5 bg-accent transform"></span>
+                    </span>
                 </h2>
             )}
             {children}

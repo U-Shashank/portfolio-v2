@@ -1,31 +1,31 @@
 import type { Metadata } from "next";
-import { Inter, Space_Mono, Poppins, Playfair_Display } from "next/font/google";
+import { Sora, JetBrains_Mono, Manrope } from "next/font/google";
 import "./globals.css";
 import ThemeProvider from "@/context/theme-provider";
-import ParticlesEffect from "@/components/ParticlessEffect";
+import ParticlesEffect from "@/components/ParticlesEffect";
 
-// Primary sans-serif font (replacing Geist/Poppins)
-const inter = Inter({
+// Primary sans-serif font (replacing Inter)
+const sora = Sora({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-inter",
+  variable: "--font-sora",
   weight: ["400", "500", "600", "700"],
 });
 
-// Monospace font for code elements
-const spaceMono = Space_Mono({
+// Monospace font for code elements (replacing Space Mono)
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-space-mono",
+  variable: "--font-jetbrains",
   weight: ["400", "700"],
 });
 
-// Accent font for headings (optional)
-const playfair = Playfair_Display({
+// Modern font for headings (replacing Playfair)
+const manrope = Manrope({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-playfair",
-  weight: ["400", "500", "600", "700"],
+  variable: "--font-manrope",
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -42,7 +42,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${spaceMono.variable} ${playfair.variable} font-sans antialiased bg-background text-foreground`}
+        className={`${sora.variable} ${jetbrainsMono.variable} ${manrope.variable} font-sans antialiased bg-background text-foreground`}
       >
         <ParticlesEffect />
         <ThemeProvider>

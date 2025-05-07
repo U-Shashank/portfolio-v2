@@ -1,52 +1,19 @@
 import { useState } from "react";
-import Section from "../Section";
-import { Github, ExternalLink, Users, Folder, Play } from "lucide-react";
+import Section from "../components/Section";
+import { FaGithub, FaExternalLinkAlt, FaUsers, FaFolder, FaPlay } from "react-icons/fa";
 import * as motion from "motion/react-client";
+import projects from "@/constants/projects";
 
 type Project = {
   title: string;
   description: string;
   tech: string[];
-  videoUrl?: string; // Google Drive embed URL
+  videoUrl?: string;
   githubUrl?: string;
   liveUrl?: string;
   collaborators?: string[];
   highlighted?: boolean;
 };
-
-const projects: Project[] = [
-  {
-    title: "E-Commerce Platform",
-    description: "Full-featured online store with cart, checkout, and admin dashboard.",
-    tech: ["Next.js", "TypeScript", "Stripe"],
-    videoUrl: "https://drive.google.com/file/d/1SQkj6hICsdPVvpve6uqOsgkKy3xwdO0A/preview",
-    githubUrl: "#",
-    liveUrl: "#",
-    collaborators: ["@designer1"],
-    highlighted: true
-  },
-  {
-    title: "E-Commerce Platform",
-    description: "Full-featured online store with cart, checkout, and admin dashboard.",
-    tech: ["Next.js", "TypeScript", "Stripe"],
-    videoUrl: "https://drive.google.com/file/d/1SQkj6hICsdPVvpve6uqOsgkKy3xwdO0A/preview",
-    githubUrl: "#",
-    liveUrl: "#",
-    collaborators: ["@designer1"],
-    highlighted: true
-  },
-  {
-    title: "E-Commerce Platform",
-    description: "Full-featured online store with cart, checkout, and admin dashboard.",
-    tech: ["Next.js", "TypeScript", "Stripe"],
-    videoUrl: "https://drive.google.com/file/d/1SQkj6hICsdPVvpve6uqOsgkKy3xwdO0A/preview",
-    githubUrl: "#",
-    liveUrl: "#",
-    collaborators: ["@designer1"],
-    highlighted: false
-  },
-  // Add more projects...
-];
 
 const ProjectsSection = ({ ref }: { ref: React.RefObject<HTMLElement | null> }) => {
   const [videoPlaying, setVideoPlaying] = useState<Record<number, boolean>>({});
@@ -55,7 +22,7 @@ const ProjectsSection = ({ ref }: { ref: React.RefObject<HTMLElement | null> }) 
   const regularProjects = projects.filter(p => !p.highlighted);
 
   return (
-    <Section id="projects" title="My Projects" ref={ref} className="space-y-12">
+    <Section id="projects" title="Projects Showcase" ref={ref} className="space-y-12">
       {/* Highlighted Projects - Alternating Layout */}
       <div className="space-y-24">
         {highlightedProjects.map((project, index) => (
@@ -84,7 +51,7 @@ const ProjectsSection = ({ ref }: { ref: React.RefObject<HTMLElement | null> }) 
                   className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 transform rounded-full bg-accent p-4 text-white shadow-lg transition-all hover:scale-110"
                   aria-label="Play video"
                 >
-                  <Play className="h-8 w-8 fill-current" />
+                  <FaPlay className="h-8 w-8 fill-current" />
                 </button>
               )}
             </div>
@@ -119,7 +86,7 @@ const ProjectsSection = ({ ref }: { ref: React.RefObject<HTMLElement | null> }) 
                       rel="noopener noreferrer"
                       className="flex items-center gap-2 text-foreground hover:text-accent"
                     >
-                      <Github className="h-5 w-5" />
+                      <FaGithub className="h-5 w-5" />
                       <span>Code</span>
                     </a>
                   )}
@@ -130,13 +97,13 @@ const ProjectsSection = ({ ref }: { ref: React.RefObject<HTMLElement | null> }) 
                       rel="noopener noreferrer"
                       className="flex items-center gap-2 text-foreground hover:text-accent"
                     >
-                      <ExternalLink className="h-5 w-5" />
+                      <FaExternalLinkAlt className="h-5 w-5" />
                       <span>Live Demo</span>
                     </a>
                   )}
                   {project.collaborators && (
                     <div className="flex items-center gap-2 text-foreground/70">
-                      <Users className="h-5 w-5" />
+                      <FaUsers className="h-5 w-5" />
                       <span>{project.collaborators.join(", ")}</span>
                     </div>
                   )}
@@ -165,7 +132,7 @@ const RegularProject = ({ project }: { project: Project }) => {
       className="rounded-lg border border-secondary/10 bg-card p-6 transition-all hover:shadow-md"
     >
       <div className="mb-4 flex items-start justify-between">
-        <Folder className="h-8 w-8 text-accent" />
+        <FaFolder className="h-8 w-8 text-accent" />
         <div className="flex gap-3">
           {project.githubUrl && (
             <a
@@ -175,7 +142,7 @@ const RegularProject = ({ project }: { project: Project }) => {
               className="text-foreground/50 hover:text-accent"
               aria-label="GitHub repository"
             >
-              <Github className="h-5 w-5" />
+              <FaGithub className="h-5 w-5" />
             </a>
           )}
           {project.liveUrl && (
@@ -186,7 +153,7 @@ const RegularProject = ({ project }: { project: Project }) => {
               className="text-foreground/50 hover:text-accent"
               aria-label="Live demo"
             >
-              <ExternalLink className="h-5 w-5" />
+              <FaExternalLinkAlt className="h-5 w-5" />
             </a>
           )}
         </div>
