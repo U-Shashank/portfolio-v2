@@ -94,7 +94,7 @@ const AboutSection = ({
                       (tech, i) => (
                         <motion.li
                           key={tech}
-                          className="flex items-center gap-2"
+                          className="flex items-center gap-2 text-nowrap"
                           initial={{ x: -10, opacity: 0 }}
                           whileInView={{ x: 0, opacity: 1 }}
                           viewport={{ once: true }}
