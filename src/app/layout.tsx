@@ -4,7 +4,6 @@ import "./globals.css";
 import ThemeProvider from "@/context/theme-provider";
 import ParticlesEffect from "@/components/ParticlesEffect";
 
-// Primary sans-serif font (replacing Inter)
 const sora = Sora({
   subsets: ["latin"],
   display: "swap",
@@ -12,7 +11,6 @@ const sora = Sora({
   weight: ["400", "500", "600", "700"],
 });
 
-// Monospace font for code elements (replacing Space Mono)
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   display: "swap",
@@ -20,7 +18,6 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ["400", "700"],
 });
 
-// Modern font for headings (replacing Playfair)
 const manrope = Manrope({
   subsets: ["latin"],
   display: "swap",

@@ -7,10 +7,9 @@ import ProjectsSection from "@/Sections/ProjectsSection";
 import SkillsSection from "@/Sections/SkillsSection";
 import ContactSection from "@/Sections/ContactSection";
 import { useRef } from "react";
-import ParticlesEffect from "@/components/ParticlesEffect";
 import ExperienceSection from "@/Sections/ExperienceSection";
 
-export default function Home() {
+const Home = () => {
 
   const homeRef = useRef<HTMLElement>(null);
   const aboutRef = useRef<HTMLElement>(null);
@@ -30,7 +29,7 @@ export default function Home() {
         contact: contactRef,
       }} />
 
-      <main className="">
+      <main className="scroll-smooth">
         <HeroSection ref={homeRef}/>
         <AboutSection ref={aboutRef}/>
         <ExperienceSection ref={experienceRef}/>
@@ -41,3 +40,5 @@ export default function Home() {
     </>
   );
 }
+
+export default Home;

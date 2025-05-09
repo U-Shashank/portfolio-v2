@@ -23,8 +23,8 @@ const SkillsSection = ({ ref }: { ref: React.RefObject<HTMLElement | null> }) =>
               {group.skills.map((skill, skillIndex) => (
                 <motion.div
                   key={skill.name}
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: skillIndex * 0.05 }}
                   whileHover={{ scale: 1.05 }}

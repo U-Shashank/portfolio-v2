@@ -9,8 +9,7 @@ const MobileMenuButton = ({
 }) => {
     return (
         <button
-            className="md:hidden p-2 z-[100] hover:scale-105 transition-transform
-                  focus:outline-none rounded"
+            className="md:hidden p-2 z-[100] hover:scale-105 transform-gpu transition-transform rounded relative"
             onClick={onClick}
             aria-label={isOpen ? "Close menu" : "Open menu"}
             aria-expanded={isOpen}

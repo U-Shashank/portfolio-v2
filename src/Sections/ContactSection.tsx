@@ -1,16 +1,44 @@
+"use client"
+
 import Section from "../components/Section";
-import * as motion from "motion/react-client";
+import { motion } from "motion/react";
 import { useRef, useEffect, useState } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
+import emailjs from "@emailjs/browser";
+
+// Define form values type
+type FormValues = {
+  name: string;
+  email: string;
+  message: string;
+};
+
+// Status type for button
+type SubmitStatus = "idle" | "submitting" | "success" | "error";
 
 const ContactSection = ({ ref }: { ref: React.RefObject<HTMLElement | null> }) => {
   const svgRef = useRef<SVGSVGElement>(null);
-  const [formState, setFormState] = useState({
-    name: "",
-    email: "",
-    message: "",
-    submitted: false,
-    loading: false
-  });
+  const { register, handleSubmit, formState, reset } = useForm<FormValues>();
+  const { errors, isSubmitting } = formState;
+  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>("idle");
+
+  // Initialize EmailJS
+  useEffect(() => {    
+    emailjs.init({
+      publicKey: process.env.NEXT_PUBLIC_KEY,
+    });
+  }, []);
+
+  // Reset status after showing success/error message
+  useEffect(() => {
+    if (submitStatus === "success" || submitStatus === "error") {
+      const timer = setTimeout(() => {
+        setSubmitStatus("idle");
+      }, 3000);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [submitStatus]);
 
   // SVG animation effect
   useEffect(() => {
@@ -37,24 +65,77 @@ const ContactSection = ({ ref }: { ref: React.RefObject<HTMLElement | null> }) =
     }
   }, []);
 
-  // Form submission handler
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setFormState(prev => ({ ...prev, loading: true }));
+  // Form submission handler using EmailJS
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    setSubmitStatus("submitting");
     
-    // Simulate form submission
-    setTimeout(() => {
-      setFormState(prev => ({ 
-        ...prev, 
-        loading: false,
-        submitted: true 
-      }));
-    }, 1500);
+    try {
+      const templateParams = {
+        from_name: data.name,
+        reply_to: data.email,
+        message: data.message
+      };
+      
+      const response = await emailjs.send(
+        process.env.NEXT_PUBLIC_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_TEMPLATE_ID!,
+        templateParams
+      );
+      
+      if (response.status === 200) {
+        setSubmitStatus("success");
+        reset(); // Reset form after successful submission
+      }
+    } catch (error) {
+      console.error("Error sending email:", error);
+      setSubmitStatus("error");
+    }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { id, value } = e.target;
-    setFormState(prev => ({ ...prev, [id]: value }));
+  // Button content based on submit status
+  const getButtonContent = () => {
+    switch (submitStatus) {
+      case "submitting":
+        return (
+          <span className="inline-flex items-center justify-center">
+            <svg className="animate-spin h-5 w-5 text-accent" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+          </span>
+        );
+      case "success":
+        return (
+          <span className="inline-flex items-center justify-center text-green-500">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+            Message Sent Successfully!
+          </span>
+        );
+      case "error":
+        return (
+          <span className="inline-flex items-center justify-center text-red-500">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="15" y1="9" x2="9" y2="15"></line>
+              <line x1="9" y1="9" x2="15" y2="15"></line>
+            </svg>
+            Failed to Send. Try Again.
+          </span>
+        );
+      default:
+        return (
+          <span className="inline-flex items-center justify-center">
+            Send Message
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-2 group-hover:translate-x-1 transition-transform">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </span>
+        );
+    }
   };
 
   return (
@@ -71,6 +152,7 @@ const ContactSection = ({ ref }: { ref: React.RefObject<HTMLElement | null> }) =
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
           className="text-center mb-16"
         >
           <p className="text-foreground/70 max-w-2xl mx-auto">
@@ -120,7 +202,6 @@ const ContactSection = ({ ref }: { ref: React.RefObject<HTMLElement | null> }) =
                 />
               </svg>
             </div>
-
           </motion.div>
 
           {/* Contact form - right side */}
@@ -130,118 +211,100 @@ const ContactSection = ({ ref }: { ref: React.RefObject<HTMLElement | null> }) =
             transition={{ duration: 0.8, delay: 0.4 }}
             className="lg:col-span-3 rounded-2xl backdrop-blur-md border border-secondary/10 shadow-xl overflow-hidden"
           >
-            {formState.submitted ? (
-              <div className="p-12 flex flex-col items-center justify-center text-center h-full">
-                <div className="bg-accent/10 p-4 rounded-full mb-6">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-accent">
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                  </svg>
+            <form onSubmit={handleSubmit(onSubmit)} className="p-8 lg:p-12">
+              <div className="space-y-6">
+                <div className="space-y-2">
+                  <label htmlFor="name" className="text-sm font-medium text-foreground/80 block">
+                    Your Name
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      id="name"
+                      {...register("name", {
+                        required: "Please enter your name"
+                      })}
+                      className="w-full bg-background/30 border border-secondary/20 rounded-lg px-4 py-3 pl-10 focus:border-accent focus:ring-1 focus:ring-accent/30 outline-none transition-all placeholder:text-foreground/30"
+                      placeholder="John Doe"
+                    />
+                    <div className="absolute left-3 top-1/2 -translate-y-1/2 text-foreground/40">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                      </svg>
+                    </div>
+                  </div>
+                  {errors.name && (
+                    <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
+                  )}
                 </div>
-                <h3 className="text-2xl font-bold text-foreground mb-2">Message Sent!</h3>
-                <p className="text-foreground/70 mb-8">
-                  Thank you for reaching out. I'll get back to you as soon as possible.
-                </p>
-                <button 
-                  onClick={() => setFormState(prev => ({ ...prev, submitted: false }))}
-                  className="px-6 py-2 bg-primary/10 hover:bg-primary/20 text-primary rounded-full transition-all"
+
+                <div className="space-y-2">
+                  <label htmlFor="email" className="text-sm font-medium text-foreground/80 block">
+                    Email Address
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="email"
+                      id="email"
+                      {...register("email", {
+                        required: "Please enter your email",
+                        pattern: {
+                          value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                          message: "Invalid email address"
+                        }
+                      })}
+                      className="w-full bg-background/30 border border-secondary/20 rounded-lg px-4 py-3 pl-10 focus:border-accent focus:ring-1 focus:ring-accent/30 outline-none transition-all placeholder:text-foreground/30"
+                      placeholder="hello@example.com"
+                    />
+                    <div className="absolute left-3 top-1/2 -translate-y-1/2 text-foreground/40">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                      </svg>
+                    </div>
+                  </div>
+                  {errors.email && (
+                    <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+                  )}
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="message" className="text-sm font-medium text-foreground/80 block">
+                    Your Message
+                  </label>
+                  <div className="relative">
+                    <textarea
+                      id="message"
+                      {...register("message", {
+                        required: "Please enter a message"
+                      })}
+                      rows={5}
+                      className="w-full bg-background/30 border border-secondary/20 rounded-lg px-4 py-3 focus:border-accent focus:ring-1 focus:ring-accent/30 outline-none transition-all placeholder:text-foreground/30 resize-none"
+                      placeholder="Tell me about your project, questions, or anything else..."
+                    ></textarea>
+                  </div>
+                  {errors.message && (
+                    <p className="text-red-500 text-sm mt-1">{errors.message.message}</p>
+                  )}
+                </div>
+
+                <motion.button
+                  type="submit"
+                  disabled={isSubmitting || submitStatus === "submitting"}
+                  whileHover={{ scale: submitStatus === "submitting" ? 1 : 1.02 }}
+                  whileTap={{ scale: submitStatus === "submitting" ? 1 : 0.98 }}
+                  className={`w-full py-4 rounded-lg font-medium shadow-lg transition-all relative overflow-hidden group cursor-pointer ${
+                    submitStatus === "idle" ? "bg-transparent border border-accent text-accent hover:shadow-accent/50" : 
+                    submitStatus === "success" ? "border border-green-500" :
+                    submitStatus === "error" ? "border border-red-500" :
+                    "bg-transparent border border-accent text-accent"
+                  }`}
                 >
-                  Send another message
-                </button>
+                  {getButtonContent()}
+                </motion.button>
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="p-8 lg:p-12">
-                <div className="space-y-6">
-                  <div className="space-y-2">
-                    <label htmlFor="name" className="text-sm font-medium text-foreground/80 block">
-                      Your Name
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="text"
-                        id="name"
-                        value={formState.name}
-                        onChange={handleChange}
-                        required
-                        className="w-full bg-background/30 border border-secondary/20 rounded-lg px-4 py-3 pl-10 focus:border-accent focus:ring-1 focus:ring-accent/30 outline-none transition-all placeholder:text-foreground/30"
-                        placeholder="John Doe"
-                      />
-                      <div className="absolute left-3 top-1/2 -translate-y-1/2 text-foreground/40">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                          <circle cx="12" cy="7" r="4"></circle>
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <label htmlFor="email" className="text-sm font-medium text-foreground/80 block">
-                      Email Address
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="email"
-                        id="email"
-                        value={formState.email}
-                        onChange={handleChange}
-                        required
-                        className="w-full bg-background/30 border border-secondary/20 rounded-lg px-4 py-3 pl-10 focus:border-accent focus:ring-1 focus:ring-accent/30 outline-none transition-all placeholder:text-foreground/30"
-                        placeholder="hello@example.com"
-                      />
-                      <div className="absolute left-3 top-1/2 -translate-y-1/2 text-foreground/40">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                          <polyline points="22,6 12,13 2,6"></polyline>
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <label htmlFor="message" className="text-sm font-medium text-foreground/80 block">
-                      Your Message
-                    </label>
-                    <div className="relative">
-                      <textarea
-                        id="message"
-                        value={formState.message}
-                        onChange={handleChange}
-                        required
-                        rows={5}
-                        className="w-full bg-background/30 border border-secondary/20 rounded-lg px-4 py-3 focus:border-accent focus:ring-1 focus:ring-accent/30 outline-none transition-all placeholder:text-foreground/30 resize-none"
-                        placeholder="Tell me about your project, questions, or anything else..."
-                      ></textarea>
-                    </div>
-                  </div>
-
-                    <motion.button
-                    type="submit"
-                    disabled={formState.loading}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="w-full bg-transparent border border-accent text-accent py-4 rounded-lg font-medium shadow-lg hover:shadow-accent/50 transition-all relative overflow-hidden group"
-                    >
-                    <span className={`inline-flex items-center justify-center transition-all ${formState.loading ? 'opacity-0' : 'opacity-100'}`}>
-                      Send Message
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-2 group-hover:translate-x-1 transition-transform">
-                      <line x1="5" y1="12" x2="19" y2="12"></line>
-                      <polyline points="12 5 19 12 12 19"></polyline>
-                      </svg>
-                    </span>
-                    
-                    {formState.loading && (
-                      <span className="absolute inset-0 flex items-center justify-center">
-                      <svg className="animate-spin h-5 w-5 text-accent" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                      </svg>
-                      </span>
-                    )}
-                    </motion.button>
-                </div>
-              </form>
-            )}
+            </form>
           </motion.div>
         </div>
       </div>

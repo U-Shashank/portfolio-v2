@@ -25,12 +25,23 @@ const Section = ({
             ref={ref}
         >
             {title && (
-                <h2 className="text-4xl md:text-5xl font-serif font-bold mb-12 text-center">
+                <motion.h2
+                    className="text-4xl md:text-5xl font-serif font-bold mb-12 text-center overflow-hidden"
+                    initial={{ y: "100%", opacity: 0 }}
+                    whileInView={{ y: "0%", opacity: 1 }}
+                    transition={{ duration: 0.7, ease: "easeOut" }}
+                    viewport={{ once: true, margin: "-100px" }}
+                >
                     <span className="relative inline-block">
                         {title}
-                        <span className="absolute -bottom-4 left-1/4 right-1/4 h-0.5 bg-accent transform"></span>
+                        <motion.span
+                            className="absolute -bottom-4 left-1/4 right-1/4 h-0.5 bg-accent transform"
+                            initial={{ scaleX: 0 }}
+                            whileInView={{ scaleX: 1 }}
+                            transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }} // Using a named easing
+                        />
                     </span>
-                </h2>
+                </motion.h2>
             )}
             {children}
         </motion.section>
@@ -38,3 +49,5 @@ const Section = ({
 }
 
 export default Section;
+
+

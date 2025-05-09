@@ -32,16 +32,6 @@
   --dark-card: #1F2937;
 
   /* Initial values - will be overridden by ThemeProvider */
-  --background: var(--light-background);
-  --foreground: var(--light-foreground);
-  --primary: var(--light-primary);
-  --secondary: var(--light-secondary);
-  --accent: var(--light-accent);
-  --card: var(--light-card);
-}
-
-/* Dark theme override - now controlled by React context */
-[data-theme="dark"] {
   --background: var(--dark-background);
   --foreground: var(--dark-foreground);
   --primary: var(--dark-primary);
@@ -50,16 +40,14 @@
   --card: var(--dark-card);
 }
 
-/* System preference fallback */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --background: var(--dark-background);
-    --foreground: var(--dark-foreground);
-    --primary: var(--dark-primary);
-    --secondary: var(--dark-secondary);
-    --accent: var(--dark-accent);
-    --card: var(--dark-card);
-  }
+/* Dark theme override - now controlled by React context */
+[data-theme="light"] {
+  --background: var(--light-background);
+  --foreground: var(--light-foreground);
+  --primary: var(--light-primary);
+  --secondary: var(--light-secondary);
+  --accent: var(--light-accent);
+  --card: var(--light-card);
 }
 
 @theme {

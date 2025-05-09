@@ -1,54 +1,80 @@
 const projects = [
-    {
-        title: "Invoice Management System",
-        description: "Full-stack invoice system to create, edit, and track invoices. Includes authentication, email notifications, and a dashboard with graphical analytics.",
-        tech: ["Next.js", "Prisma", "Tailwind CSS", "NextAuth.js", "Zod", "Shadcn UI", "TypeScript", "Mailtrap"],
-        videoUrl: "",
-        githubUrl: "#",
-        liveUrl: "#",
-        collaborators: [],
-        highlighted: true
-    },
-    {
-        title: "Apoorv - College Techno-Cultural Fest Website",
-        description: "College fest website with event schedules, registration, and merchandise sales. Integrated Razorpay for payments and an admin dashboard for merchandise management.",
-        tech: ["React.js", "Tailwind CSS", "Node.js", "Express.js", "MongoDB", "Razorpay"],
-        videoUrl: "",
-        githubUrl: "#",
-        liveUrl: "#",
-        collaborators: [],
-        highlighted: true
-    },
-    {
-        title: "SwiftCart - Full Stack E-Commerce Website",
-        description: "E-commerce platform with React.js frontend and Tailwind CSS. Features user authentication using JWT and a secure payment gateway. Scalable backend with RESTful API using Node.js and Express.js.",
-        tech: ["React.js", "Node.js", "Express.js", "MongoDB", "Tailwind CSS", "JWT"],
-        videoUrl: "",
-        githubUrl: "#",
-        liveUrl: "#",
-        collaborators: [],
-        highlighted: true
-    },
-    {
-        title: "SwiftCart - Full Stack E-Commerce Website",
-        description: "E-commerce platform with React.js frontend and Tailwind CSS. Features user authentication using JWT and a secure payment gateway. Scalable backend with RESTful API using Node.js and Express.js.",
-        tech: ["React.js", "Node.js", "Express.js", "MongoDB", "Tailwind CSS", "JWT"],
-        videoUrl: "",
-        githubUrl: "#",
-        liveUrl: "#",
-        collaborators: [],
-        highlighted: false
-    },
-    {
-        title: "SwiftCart - Full Stack E-Commerce Website",
-        description: "E-commerce platform with React.js frontend and Tailwind CSS. Features user authentication using JWT and a secure payment gateway. Scalable backend with RESTful API using Node.js and Express.js.",
-        tech: ["React.js", "Node.js", "Express.js", "MongoDB", "Tailwind CSS", "JWT"],
-        videoUrl: "",
-        githubUrl: "#",
-        liveUrl: "#",
-        collaborators: [],
-        highlighted: false
-    },
+  {
+    title: "Invoice Management System",
+    description:
+      "Full-stack invoice system to create, edit, and track invoices. Includes authentication, email notifications, and a dashboard with graphical analytics.",
+    tech: [
+      "Next.js",
+      "Prisma",
+      "Tailwind CSS",
+      "NextAuth.js",
+      "Zod",
+      "Shadcn UI",
+      "TypeScript",
+      "Mailtrap",
+    ],
+    videoUrl: "https://www.youtube.com/embed/2Y430RXCC7M",
+    githubUrl: "https://github.com/U-Shashank/Invoice-Manager",
+    liveUrl: "https://invoice-manager-gules.vercel.app/",
+    collaborators: [],
+    highlighted: true,
+  },
+  {
+    title: "Apoorv - College Techno-Cultural Fest Website",
+    description:
+      "College fest website with event schedules, registration, and merchandise sales. Integrated Razorpay for payments and an admin dashboard for merchandise management.",
+    tech: [
+      "React.js",
+      "Tailwind CSS",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "Razorpay",
+    ],
+    videoUrl: "https://www.youtube.com/embed/rZQm9sF4vaE",
+    // githubUrl: "#",
+    liveUrl: "apoorv.iiitkottayam.ac.in",
+    collaborators: [],
+    highlighted: true,
+  },
+  {
+    title: "SwiftCart - Full Stack E-Commerce Website",
+    description:
+      "E-commerce platform with React.js frontend and Tailwind CSS. Features user authentication using JWT and a secure payment gateway. Scalable backend with RESTful API using Node.js and Express.js.",
+    tech: [
+      "React.js",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "Tailwind CSS",
+      "JWT",
+    ],
+    videoUrl: "https://www.youtube.com/embed/7IiuzXLiiY8",
+    githubUrl: "https://github.com/U-Shashank/Swift-Cart",
+    liveUrl: "https://swift-cart-seven.vercel.app",
+    collaborators: [],
+    highlighted: true,
+  },
+  {
+    title: "Portfolio-v2",
+    // description: "E-commerce platform with React.js frontend and Tailwind CSS. Features user authentication using JWT and a secure payment gateway. Scalable backend with RESTful API using Node.js and Express.js.",
+    tech: ["Next.js", "Tailwind CSS"],
+    videoUrl: "",
+    githubUrl: "https://github.com/U-Shashank/portfolio-v2",
+    liveUrl: "https://shashankupadhyay.dev",
+    collaborators: [],
+    highlighted: false,
+  },
+  {
+    title: "Food Product Explorer",
+    // description: "E-commerce platform with React.js frontend and Tailwind CSS. Features user authentication using JWT and a secure payment gateway. Scalable backend with RESTful API using Node.js and Express.js.",
+    tech: ["React.js", "Tailwind CSS"],
+    videoUrl: "",
+    githubUrl: "https://github.com/U-Shashank/Food-Product-Explorer",
+    liveUrl: "https://food-product-explorer-orpin.vercel.app/",
+    collaborators: [],
+    highlighted: false,
+  },
 ];
 
 export default projects;

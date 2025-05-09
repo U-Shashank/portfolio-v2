@@ -7,27 +7,27 @@ import Section from "../components/Section";
 const socialLinks = [
   {
     icon: <FaLinkedin className="w-5 h-5" />,
-    href: "https://linkedin.com/in/yourprofile",
+    href: "https://www.linkedin.com/in/shashanku30",
     label: "LinkedIn",
-    color: "#0077B5"
+    color: "#0A66C2" // Adjusted to a softer shade
   },
   {
     icon: <FaXTwitter className="w-5 h-5" />,
-    href: "https://x.com/yourhandle",
+    href: "https://x.com/shashanx30",
     label: "X",
-    color: "#000000"
+    color: "#0A66C2"
   },
   {
     icon: <FaGithub className="w-5 h-5" />,
-    href: "https://github.com/yourusername",
+    href: "https://github.com/U-Shashank",
     label: "GitHub",
-    color: "#171515"
+    color: "#0A66C2" // Adjusted to a softer purple
   },
   {
     icon: <FaFileAlt className="w-5 h-5" />,
-    href: "/resume.pdf",
+    href: "https://drive.google.com/file/d/1L6v0rfv58IBKob9vk7gUZo_rPYQEjnf_/view?usp=sharing",
     label: "Resume",
-    color: "#0077B5"
+    color: "#0A66C2" // Adjusted to a softer blue
   }
 ];
 
@@ -52,7 +52,7 @@ const HeroSection = ({ ref }: { ref: React.RefObject<HTMLElement | null> }) => {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 10 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 1.2 }}
           className="mb-4"
         >
           <span className="font-mono text-xl md:text-2xl text-accent tracking-wide">
@@ -64,7 +64,7 @@ const HeroSection = ({ ref }: { ref: React.RefObject<HTMLElement | null> }) => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 1.2, delay: 0.2 }}
           className="mb-6"
         >
           <h1 className="text-6xl md:text-8xl lg:text-9xl font-serif font-bold tracking-tight text-foreground">
@@ -76,10 +76,10 @@ const HeroSection = ({ ref }: { ref: React.RefObject<HTMLElement | null> }) => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          transition={{ duration: 1.2, delay: 0.4 }}
           className="mb-8"
         >
-          <h2 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold tracking-tight text-secondary text-nowrap">
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold tracking-tight text-secondary sm:text-nowrap">
             I build things for the web.
           </h2>
         </motion.div>
@@ -88,19 +88,19 @@ const HeroSection = ({ ref }: { ref: React.RefObject<HTMLElement | null> }) => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
+          transition={{ duration: 1.2, delay: 0.6 }}
           className="max-w-3xl mx-auto"
         >
-          <p className="text-lg md:text-xl lg:text-2xl font-sans text-foreground/80 leading-relaxed">
-            I'm a software engineer specializing in building end to end exceptional digital experiences.
-          </p>
+            <p className="text-lg md:text-xl lg:text-2xl font-sans text-foreground/80 leading-relaxed">
+            I'm a software developer specializing in crafting comprehensive, user-centric, end to end applications.
+            </p>
         </motion.div>
 
         {/* Animated Social Links */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
+          transition={{ duration: 1.2, delay: 0.8 }}
           className="flex justify-center gap-6 mt-12"
         >
           {socialLinks.map(({ icon, href, label, color }) => (
@@ -122,14 +122,9 @@ const HeroSection = ({ ref }: { ref: React.RefObject<HTMLElement | null> }) => {
               <div className="text-foreground/70 group-hover:text-current transition-colors">
                 {icon}
               </div>
-              <motion.span
-                initial={{ opacity: 0, y: 5 }}
-                whileHover={{ opacity: 1, y: 0 }}
-                className="absolute -bottom-7 left-1/2 transform -translate-x-1/2 text-xs font-medium whitespace-nowrap"
-                style={{ color }}
-              >
+                <span className="absolute -bottom-7 left-1/2 transform -translate-x-1/2 text-xs text-foreground font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200">
                 {label}
-              </motion.span>
+                </span>
             </motion.a>
           ))}
         </motion.div>
