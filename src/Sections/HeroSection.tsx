@@ -9,7 +9,7 @@ const socialLinks = [
     icon: <FaLinkedin className="w-5 h-5" />,
     href: "https://www.linkedin.com/in/shashanku30",
     label: "LinkedIn",
-    color: "#0A66C2" // Adjusted to a softer shade
+    color: "#0A66C2"
   },
   {
     icon: <FaXTwitter className="w-5 h-5" />,
@@ -21,18 +21,17 @@ const socialLinks = [
     icon: <FaGithub className="w-5 h-5" />,
     href: "https://github.com/U-Shashank",
     label: "GitHub",
-    color: "#0A66C2" // Adjusted to a softer purple
+    color: "#0A66C2"
   },
   {
     icon: <FaFileAlt className="w-5 h-5" />,
     href: "https://drive.google.com/file/d/1L6v0rfv58IBKob9vk7gUZo_rPYQEjnf_/view?usp=sharing",
     label: "Resume",
-    color: "#0A66C2" // Adjusted to a softer blue
+    color: "#0A66C2"
   }
 ];
 
 const HeroSection = ({ ref }: { ref: React.RefObject<HTMLElement | null> }) => {
-  // Rest of your component stays the same
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -47,13 +46,13 @@ const HeroSection = ({ ref }: { ref: React.RefObject<HTMLElement | null> }) => {
       ref={ref}
     >
       {/* Main content container */}
-      <div className="relative z-10 w-full max-w-4xl px-8 lg:px-16 text-center">
+      <div className="relative z-10 w-full max-w-4xl px-6 sm:px-8 text-center"> {/* Adjusted padding */}
         {/* Simple greeting with subtle animation */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 10 }}
           transition={{ duration: 1.2 }}
-          className="mb-4"
+          className="mb-3 sm:mb-4"
         >
           <span className="font-mono text-xl md:text-2xl text-accent tracking-wide">
             Hi, my name is
@@ -65,9 +64,9 @@ const HeroSection = ({ ref }: { ref: React.RefObject<HTMLElement | null> }) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
           transition={{ duration: 1.2, delay: 0.2 }}
-          className="mb-6"
+          className="mb-4 sm:mb-6"
         >
-          <h1 className="text-6xl md:text-8xl lg:text-9xl font-serif font-bold tracking-tight text-foreground">
+          <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-serif font-bold tracking-tight text-foreground"> {/* Adjusted font sizes */}
             Shashank.
           </h1>
         </motion.div>
@@ -77,9 +76,9 @@ const HeroSection = ({ ref }: { ref: React.RefObject<HTMLElement | null> }) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
           transition={{ duration: 1.2, delay: 0.4 }}
-          className="mb-8"
+          className="mb-6 sm:mb-8"
         >
-          <h2 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold tracking-tight text-secondary sm:text-nowrap">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-serif font-bold tracking-tight text-secondary sm:text-nowrap"> {/* Adjusted font sizes */}
             I build things for the web.
           </h2>
         </motion.div>
@@ -91,7 +90,7 @@ const HeroSection = ({ ref }: { ref: React.RefObject<HTMLElement | null> }) => {
           transition={{ duration: 1.2, delay: 0.6 }}
           className="max-w-3xl mx-auto"
         >
-            <p className="text-lg md:text-xl lg:text-2xl font-sans text-foreground/80 leading-relaxed">
+            <p className="text-lg md:text-xl lg:text-2xl font-sans text-foreground/80">
             I'm a software developer specializing in crafting comprehensive, user-centric, end to end applications.
             </p>
         </motion.div>
@@ -101,7 +100,7 @@ const HeroSection = ({ ref }: { ref: React.RefObject<HTMLElement | null> }) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
           transition={{ duration: 1.2, delay: 0.8 }}
-          className="flex justify-center gap-6 mt-12"
+          className="flex justify-center gap-6 mt-8 sm:mt-12"
         >
           {socialLinks.map(({ icon, href, label, color }) => (
             <motion.a
@@ -110,7 +109,7 @@ const HeroSection = ({ ref }: { ref: React.RefObject<HTMLElement | null> }) => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={label}
-              whileHover={{ 
+              whileHover={{
                 y: -5,
                 scale: 1.1,
                 transition: { type: "spring", stiffness: 400, damping: 10 }

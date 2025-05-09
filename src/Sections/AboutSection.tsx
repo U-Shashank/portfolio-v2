@@ -128,7 +128,7 @@ const AboutSection = ({
 
           {/* Image Section */}
           <motion.div
-            className="flex-shrink-0 w-2/3 aspect-square md:w-[300px] h-[300px] mx-auto"
+            className="flex-shrink-0 w-[250px] h-[200px] md:w-[300px] md:h-[300px] mx-auto"
             initial={{ scale: 0.9, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
             viewport={{ once: true }}
