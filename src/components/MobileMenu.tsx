@@ -43,7 +43,7 @@ const MobileMenu = ({
                         animate={{ x: 0 }}
                         exit={{ x: "100%" }}
                         transition={{ type: "tween", duration: 0.3 }}
-                        className="fixed right-0 top-0 h-full w-[75%] sm:w-[60%] 
+                        className="fixed right-0 top-0 h-screen w-[75%] sm:w-[60%] 
                         bg-background z-[60] p-6 flex flex-col gap-6 pt-20"
                     >
                         <nav className="flex flex-col gap-6">
