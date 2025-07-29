@@ -28,7 +28,9 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   title: "Shashank | Full Stack Developer",
   description: "Personal portfolio of a full stack developer",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
+  ),
 };
 
 export default function RootLayout({
@@ -38,13 +40,31 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+      <head>
+        <link
+          rel="icon"
+          type="image/png"
+          href="icon16.png"
+          sizes="16x16"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          href="icon32.png"
+          sizes="32x32"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          href="icon96.png"
+          sizes="96x96"
+        />
+      </head>
       <body
         className={`${sora.variable} ${jetbrainsMono.variable} ${manrope.variable} font-sans antialiased bg-background text-foreground`}
       >
         <ParticlesEffect />
-        <ThemeProvider>
-          {children}
-        </ThemeProvider>
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );
