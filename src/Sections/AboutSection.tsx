@@ -54,12 +54,10 @@ const AboutSection = ({
               transition={{ delay: 0.2, duration: 0.8 }}
             >
               I'm a{" "}
-              <span className="text-accent font-medium">
-                passionate builder
-              </span>{" "}
-              fascinated by creating technology that solves real problems.
-              There's magic in transforming ideas into products that people
-              genuinely find useful.
+              <span className="text-accent font-medium">builder at heart</span>{" "}
+              who enjoys turning ideas into products people actually use. My
+              recent work spans Ruby on Rails backend development, API design,
+              enterprise monitoring, and end-to-end web applications.
             </motion.p>
 
             <motion.p
@@ -71,10 +69,10 @@ const AboutSection = ({
             >
               I thrive when working on{" "}
               <span className="text-accent font-medium">scalable systems</span>{" "}
-              with teams that challenge me to grow. Whether it's crafting
-              elegant interfaces or designing robust architectures, I care
-              deeply about the details that make technology accessible and
-              delightful.
+              with teams that value clear thinking and steady execution. Whether
+              I'm shaping the interface or working through backend details, I
+              care about building software that feels reliable, fast, and easy
+              to maintain.
             </motion.p>
 
             <motion.div
@@ -90,36 +88,36 @@ const AboutSection = ({
               <div className="flex justify-center sm:justify-start">
                 <div className="grid grid-cols-2 gap-8">
                   <ul className="space-y-2 font-mono text-sm">
-                    {["JavaScript (ES6+)", "React", "Node.js"].map(
-                      (tech, i) => (
-                        <motion.li
-                          key={tech}
-                          className="flex items-center gap-2 text-nowrap"
-                          initial={{ x: -10, opacity: 0 }}
-                          whileInView={{ x: 0, opacity: 1 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: 0.7 + i * 0.1, duration: 0.5 }}
-                        >
-                          <span className="text-accent">→</span>
-                          <span>{tech}</span>
-                        </motion.li>
-                      )
-                    )}
-                  </ul>
-                  <ul className="space-y-2 font-mono text-sm">
-                    {["TypeScript", "Next.js", "Postgres"].map((tech, i) => (
+                    {["TypeScript", "React", "Next.js"].map((tech, i) => (
                       <motion.li
                         key={tech}
-                        className="flex items-center gap-2"
+                        className="flex items-center gap-2 text-nowrap"
                         initial={{ x: -10, opacity: 0 }}
                         whileInView={{ x: 0, opacity: 1 }}
                         viewport={{ once: true }}
-                        transition={{ delay: 0.8 + i * 0.1, duration: 0.5 }}
+                        transition={{ delay: 0.7 + i * 0.1, duration: 0.5 }}
                       >
                         <span className="text-accent">→</span>
                         <span>{tech}</span>
                       </motion.li>
                     ))}
+                  </ul>
+                  <ul className="space-y-2 font-mono text-sm">
+                    {["Ruby on Rails", "Node.js", "PostgreSQL"].map(
+                      (tech, i) => (
+                        <motion.li
+                          key={tech}
+                          className="flex items-center gap-2"
+                          initial={{ x: -10, opacity: 0 }}
+                          whileInView={{ x: 0, opacity: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: 0.8 + i * 0.1, duration: 0.5 }}
+                        >
+                          <span className="text-accent">→</span>
+                          <span>{tech}</span>
+                        </motion.li>
+                      ),
+                    )}
                   </ul>
                 </div>
               </div>

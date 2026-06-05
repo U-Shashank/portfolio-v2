@@ -53,7 +53,25 @@ const projects = [
     githubUrl: "https://github.com/U-Shashank/Swift-Cart",
     liveUrl: "https://swift-cart-seven.vercel.app",
     collaborators: [],
-    highlighted: true,
+    highlighted: false,
+  },
+  {
+    title: "Inbox Manager - AI-Powered Email Management System",
+    description:
+      "AI email manager with real-time IMAP IDLE sync, queue-based processing for multiple Gmail accounts, and AI-assisted email categorization and responses.",
+    tech: [
+      "Next.js",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "Elasticsearch",
+      "ChromaDB",
+      "Google Gemini AI",
+      "Docker",
+    ],
+    githubUrl: "https://github.com/U-Shashank/inbox-manager",
+    collaborators: [],
+    highlighted: false,
   },
   {
     title: "Portfolio-v2",
